@@ -1,4 +1,5 @@
 import express, {
+  request,
   type Application,
   type NextFunction,
   type Request,
@@ -8,7 +9,7 @@ import cors from 'cors'
 import { UserRoutes } from './app/modules/users/user.route.js'
 import globalErrorHandler from './middlewares/globalErrorHandler.js'
 import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route.js'
-
+import httpStatus from 'http-status'
 const app: Application = express()
 
 app.use(cors())
@@ -22,5 +23,19 @@ app.get('/', (req: Request, res: Response, _next: NextFunction) => {
 })
 
 app.use(globalErrorHandler)
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(httpStatus.NOT_FOUND).json({
+    success: false,
+    message: 'not found',
+    errorMessage: [
+      {
+        path: req.originalUrl,
+        message: 'API not found',
+      },
+    ],
+  })
+  next()
+})
 
 export default app

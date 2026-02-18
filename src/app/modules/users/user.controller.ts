@@ -6,7 +6,6 @@ import httpStatus from 'http-status'
 const createUser = catchAsync(async (req, res, next) => {
   const { user } = req.body
   const result = await UserService.createUser(user)
-  next()
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -14,6 +13,7 @@ const createUser = catchAsync(async (req, res, next) => {
     message: 'User created successfully',
     data: result,
   })
+  next()
 })
 
 export const UserController = {
