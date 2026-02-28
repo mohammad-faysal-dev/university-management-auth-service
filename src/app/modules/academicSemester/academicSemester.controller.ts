@@ -21,7 +21,8 @@ const createSemester = catchAsync(async (req, res, next) => {
 })
 const getAllSemesters = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const filters = pick(req.query, ['searchTerm'])
+    const filters = pick(req.query, ['searchTerm', 'title', 'code', 'year'])
+    console.log(filters)
     const paginationOptions = pick(req.query, [
       'page',
       'limit',
