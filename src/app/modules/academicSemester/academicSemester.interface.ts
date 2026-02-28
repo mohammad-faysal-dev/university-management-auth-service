@@ -18,10 +18,14 @@ export type AcademicSemesterTitles = 'Autumn' | 'Summer' | 'Fall'
 export type AcademicSemesterCode = '01' | '02' | '03'
 export interface IAcademicSemester {
   title: AcademicSemesterTitles
-  year: number
+  year: string
   code: AcademicSemesterCode
   startMonth: IAcademicSemesterMonths
   endMonth: IAcademicSemesterMonths
 }
 
 export type AcademicSemesterModel = Model<IAcademicSemester>
+
+export interface IAcademicSemesterFilters {
+  searchTerm?: string
+}
