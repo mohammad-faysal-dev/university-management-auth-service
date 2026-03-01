@@ -22,7 +22,6 @@ const createSemester = catchAsync(async (req, res, next) => {
 const getAllSemesters = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const filters = pick(req.query, ['searchTerm', 'title', 'code', 'year'])
-    console.log(filters)
     const paginationOptions = pick(req.query, [
       'page',
       'limit',
@@ -43,8 +42,22 @@ const getAllSemesters = catchAsync(
     next()
   },
 )
+const getSingleSemester = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id
+    const result = await AcademicSemesterService.getSingleSemester(id)
+    sendResponse<IAcademicSemester>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic Semesters retrieved successfully',
+      data: result,
+    })
+    next()
+  },
+)
 
 export const AcademicSemesterController = {
   createSemester,
   getAllSemesters,
+  getSingleSemester,
 }
