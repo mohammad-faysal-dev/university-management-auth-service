@@ -90,7 +90,7 @@ const updateSemester = async (
 }
 
 const deleteSemester = async (
-  id: string,
+  id: string | undefined,
 ): Promise<IAcademicSemester | null> => {
   const result = await AcademicSemester.findByIdAndDelete(id)
   return result
