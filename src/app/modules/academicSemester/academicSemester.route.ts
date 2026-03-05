@@ -16,5 +16,6 @@ router.patch(
   validateRequest(AcademicSemesterValidation.updateAcademicSemesterZodSchema),
   AcademicSemesterController.updateSemester,
 )
+router.delete(':/', AcademicSemesterController.deleteSemster)
 router.get('/', AcademicSemesterController.getAllSemesters)
 export const AcademicSemesterRoutes = router
