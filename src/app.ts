@@ -10,6 +10,7 @@ import { UserRoutes } from './app/modules/users/user.route.js'
 import globalErrorHandler from './middlewares/globalErrorHandler.js'
 import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route.js'
 import httpStatus from 'http-status'
+import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes.js'
 const app: Application = express()
 
 app.use(cors())
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1/users', UserRoutes)
 app.use('/api/v1/academic-semesters', AcademicSemesterRoutes)
+app.use('/api/v1/academic-faculties', AcademicFacultyRoutes)
 
 app.get('/', (req: Request, res: Response, _next: NextFunction) => {
   res.status(200).json({ message: 'Server is running successfully' })
