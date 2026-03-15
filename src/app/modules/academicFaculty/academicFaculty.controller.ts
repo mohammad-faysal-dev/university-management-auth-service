@@ -1,4 +1,5 @@
 import catchAsync from '../../../shared/catchAsync.js'
+import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
 import type { IAcademicFaculty } from './academicFaculty.interface.js'
 import { AcademicFacultyService } from './academicFaculty.service.js'
@@ -15,12 +16,20 @@ const createFaculty = catchAsync(async (req, res) => {
   })
 })
 const getAllFaculties = catchAsync(async (req, res) => {
-  const result = await AcademicFacultyService.getAllFaculties()
+  const paginationOptions = pick(req.query, [
+    'page',
+    'limit',
+    'sortBy',
+    'sortOrder',
+  ])
+
+  const result = await AcademicFacultyService.getAllFaculties(paginationOptions)
   sendResponse<IAcademicFaculty[]>(res, {
     statusCode: 200,
     success: true,
     message: 'Academic Faculties retrieved successfully',
-    data: result,
+    meta: result.meta,
+    data: result.data,
   })
 })
 
