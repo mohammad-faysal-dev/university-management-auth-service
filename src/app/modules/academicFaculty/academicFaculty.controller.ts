@@ -1,8 +1,12 @@
 import catchAsync from '../../../shared/catchAsync.js'
 import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
-import type { IAcademicFaculty } from './academicFaculty.interface.js'
+import type {
+  IAcademicFaculty,
+  IAcademicFacultyFilters,
+} from './academicFaculty.interface.js'
 import { AcademicFacultyService } from './academicFaculty.service.js'
+import { academicFacultyFilterableFields } from './academicFaculty.constant.js'
 
 const createFaculty = catchAsync(async (req, res) => {
   const { ...academicFacultyData } = req.body
@@ -16,6 +20,8 @@ const createFaculty = catchAsync(async (req, res) => {
   })
 })
 const getAllFaculties = catchAsync(async (req, res) => {
+  const filters = pick(req.query, academicFacultyFilterableFields)
+
   const paginationOptions = pick(req.query, [
     'page',
     'limit',
@@ -23,7 +29,11 @@ const getAllFaculties = catchAsync(async (req, res) => {
     'sortOrder',
   ])
 
-  const result = await AcademicFacultyService.getAllFaculties(paginationOptions)
+  const result = await AcademicFacultyService.getAllFaculties(
+    filters as IAcademicFacultyFilters,
+    paginationOptions,
+  )
+
   sendResponse<IAcademicFaculty[]>(res, {
     statusCode: 200,
     success: true,
