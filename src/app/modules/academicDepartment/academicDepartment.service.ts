@@ -12,7 +12,20 @@ const getAllDepartments = async (): Promise<IAcademicDepartment[]> => {
   return result
 }
 
+const updateDepartment = async (
+  id: string | undefined,
+  payload: Partial<IAcademicDepartment>,
+): Promise<IAcademicDepartment | null> => {
+  const result = await AcademicDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    { new: true },
+  )
+  return result
+}
+
 export const AcademicDepartmentService = {
   createDepartment,
   getAllDepartments,
+  updateDepartment,
 }
