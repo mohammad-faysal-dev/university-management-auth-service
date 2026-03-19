@@ -6,6 +6,14 @@ const createAcademicDepartmentZodSchema = z.object({
     // academicFaculty: z.string().min(1, 'Academic Faculty is required'),
   }),
 })
+
+const updateAcademicDepartmentZodSchema = z.object({
+  body: z.object({
+    title: z.string().optional(),
+    academicFaculty: z.string().optional(),
+  }),
+})
 export const AcademicDepartmentValidation = {
   createAcademicDepartmentZodSchema,
+  updateAcademicDepartmentZodSchema,
 }

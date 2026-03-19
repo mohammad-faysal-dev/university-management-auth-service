@@ -12,4 +12,11 @@ router.post(
   AcademicDepartmentController.createDepartment,
 )
 router.get('/', AcademicDepartmentController.getAllDepartments)
+router.patch(
+  '/:id',
+  validateRequest(
+    AcademicDepartmentValidation.updateAcademicDepartmentZodSchema,
+  ),
+  AcademicDepartmentController.updateDepartment,
+)
 export const AcademicDepartmentRoutes = router
