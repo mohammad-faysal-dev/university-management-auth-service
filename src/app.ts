@@ -11,6 +11,7 @@ import globalErrorHandler from './middlewares/globalErrorHandler.js'
 import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicSemester.route.js'
 import httpStatus from 'http-status'
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes.js'
+import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.routes.js'
 const app: Application = express()
 
 app.use(cors())
@@ -20,6 +21,7 @@ app.use('/api/v1/users', UserRoutes)
 
 app.use('/api/v1/academic-semesters', AcademicSemesterRoutes)
 app.use('/api/v1/academic-faculties', AcademicFacultyRoutes)
+app.use('/api/v1/academic-departments', AcademicDepartmentRoutes)
 
 app.get('/', (req: Request, res: Response, _next: NextFunction) => {
   res.status(200).json({ message: 'Server is running successfully' })
