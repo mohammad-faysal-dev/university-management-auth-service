@@ -19,4 +19,5 @@ router.patch(
   ),
   AcademicDepartmentController.updateDepartment,
 )
+router.delete('/:id', AcademicDepartmentController.deleteDepartment)
 export const AcademicDepartmentRoutes = router

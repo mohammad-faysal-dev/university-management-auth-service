@@ -34,9 +34,20 @@ const updateDepartment = catchAsync(async (req, res) => {
     data: result,
   })
 })
+const deleteDepartment = catchAsync(async (req, res) => {
+  const { id } = req.params
+  const result = await AcademicDepartmentService.deleteDepartment(id)
+  sendResponse<IAcademicDepartment>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Academic Department deleted successfully',
+    data: result,
+  })
+})
 
 export const AcademicDepartmentController = {
   createDepartment,
   getAllDepartments,
   updateDepartment,
+  deleteDepartment,
 }
