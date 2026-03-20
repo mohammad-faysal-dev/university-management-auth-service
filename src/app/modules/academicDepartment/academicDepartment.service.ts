@@ -1,9 +1,13 @@
+import type { SortOrder } from 'mongoose'
+import { paginationHelper } from '../../../helpers/paginationHelper.js'
+import type { IPaginationOptions } from '../../../interfaces/paginations.js'
 import { academicDepartmentSearchableFields } from './academicDepartment.constants.js'
 import type {
   IAcademicDepartment,
   IAcademicDepartmentFilters,
 } from './academicDepartment.interface.js'
 import { AcademicDepartment } from './academicDepartment.model.js'
+import type { IGenericResponse } from '../../../interfaces/common.js'
 
 const createDepartment = async (
   payload: IAcademicDepartment,
@@ -13,7 +17,10 @@ const createDepartment = async (
 }
 const getAllDepartments = async (
   filters: IAcademicDepartmentFilters,
-): Promise<IAcademicDepartment[]> => {
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<IAcademicDepartment[]>> => {
+  const { page, limit, sortBy, sortOrder } =
+    paginationHelper.calculatePagination(paginationOptions)
   const { searchTerm, ...filtersData } = filters
   const andConditions: Record<string, unknown>[] = []
   if (searchTerm) {
@@ -33,8 +40,26 @@ const getAllDepartments = async (
       })),
     })
   }
-  const result = await AcademicDepartment.find({ $and: andConditions })
-  return result
+  const whereConditions = andConditions.length ? { $and: andConditions } : {}
+
+  const sortConditions: { [key: string]: SortOrder } = {}
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder
+  }
+  const skip = (page - 1) * limit
+  const total = await AcademicDepartment.countDocuments(whereConditions)
+  const result = await AcademicDepartment.find(whereConditions)
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit)
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  }
 }
 
 const updateDepartment = async (

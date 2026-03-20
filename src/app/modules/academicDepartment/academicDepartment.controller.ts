@@ -1,3 +1,4 @@
+import { paginationFields } from '../../../constants/pagination.js'
 import catchAsync from '../../../shared/catchAsync.js'
 import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
@@ -21,14 +22,22 @@ const createDepartment = catchAsync(async (req, res) => {
 })
 const getAllDepartments = catchAsync(async (req, res) => {
   const filters = pick(req.query, academicDepartmentFilterableFields)
+  const paginationOptions = pick(req.query, [
+    'page',
+    'limit',
+    'sortBy',
+    'sortOrder',
+  ])
   const result = await AcademicDepartmentService.getAllDepartments(
     filters as IAcademicDepartmentFilters,
+    paginationOptions,
   )
   sendResponse<IAcademicDepartment[]>(res, {
     statusCode: 200,
     success: true,
     message: 'Academic Departments retrieved successfully',
-    data: result,
+    meta: result.meta,
+    data: result.data,
   })
 })
 
