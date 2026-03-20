@@ -15,3 +15,8 @@ export interface IAcademicDepartmentFilterRequest {
   searchTerm?: string
   academicFaculty?: Types.ObjectId
 }
+
+export interface IAcademicDepartmentFilters {
+  searchTerm?: string
+  title?: string
+}

@@ -1,6 +1,11 @@
 import catchAsync from '../../../shared/catchAsync.js'
+import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
-import type { IAcademicDepartment } from './academicDepartment.interface.js'
+import { academicDepartmentFilterableFields } from './academicDepartment.constants.js'
+import type {
+  IAcademicDepartment,
+  IAcademicDepartmentFilters,
+} from './academicDepartment.interface.js'
 import { AcademicDepartmentService } from './academicDepartment.service.js'
 
 const createDepartment = catchAsync(async (req, res) => {
@@ -15,7 +20,10 @@ const createDepartment = catchAsync(async (req, res) => {
   })
 })
 const getAllDepartments = catchAsync(async (req, res) => {
-  const result = await AcademicDepartmentService.getAllDepartments()
+  const filters = pick(req.query, academicDepartmentFilterableFields)
+  const result = await AcademicDepartmentService.getAllDepartments(
+    filters as IAcademicDepartmentFilters,
+  )
   sendResponse<IAcademicDepartment[]>(res, {
     statusCode: 200,
     success: true,
