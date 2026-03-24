@@ -1,17 +1,22 @@
+import type { IAcademicSemester } from '../academicSemester/academicSemester.interface.js'
 import { User } from './user.model.js'
 
-export const findLastUserId = async () => {
-  const LastUser = await User.findOne({}, { id: 1, _id: 0 })
+export const findLastStudentId = async () => {
+  const LastStudent = await User.findOne({}, { id: 1, _id: 0 })
     .sort({
       createdAt: -1,
     })
     .lean()
-  return LastUser?.id
+  return LastStudent?.id
 }
 
-export const generateUserId = async () => {
-  const currentId = (await findLastUserId()) || (0).toString().padStart(5, '0')
+export const generateStudentId = async (
+  academicSemester: IAcademicSemester,
+): Promise<string> => {
+  const currentId =
+    (await findLastStudentId()) || (0).toString().padStart(5, '0')
 
-  const incrementId = (parseInt(currentId) + 1).toString().padStart(5, '0')
-  return incrementId
+  let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0')
+  incrementedId = `${academicSemester.year.substring(2)}${academicSemester.code}${incrementedId}`
+  return incrementedId
 }

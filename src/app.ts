@@ -12,6 +12,7 @@ import { AcademicSemesterRoutes } from './app/modules/academicSemester/academicS
 import httpStatus from 'http-status'
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes.js'
 import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.routes.js'
+import { generateStudentId } from './app/modules/users/user.utils.js'
 const app: Application = express()
 
 app.use(cors())
