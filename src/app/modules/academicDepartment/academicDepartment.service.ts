@@ -12,7 +12,9 @@ import type { IGenericResponse } from '../../../interfaces/common.js'
 const createDepartment = async (
   payload: IAcademicDepartment,
 ): Promise<IAcademicDepartment> => {
-  const result = await AcademicDepartment.create(payload)
+  const result = (await AcademicDepartment.create(payload)).populate(
+    'academicFaculty',
+  )
   return result
 }
 const getAllDepartments = async (
@@ -49,6 +51,7 @@ const getAllDepartments = async (
   const skip = (page - 1) * limit
   const total = await AcademicDepartment.countDocuments(whereConditions)
   const result = await AcademicDepartment.find(whereConditions)
+    .populate('academicFaculty')
     .sort(sortConditions)
     .skip(skip)
     .limit(limit)
