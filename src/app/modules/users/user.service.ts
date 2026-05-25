@@ -2,10 +2,10 @@ import config from '../../../config/index.js'
 import ApiError from '../../../errors/ApiError.js'
 import type { IUser } from './user.interface.js'
 import { User } from './user.model.js'
-import { generateUserId } from './user.utils.js'
+import { generateStudentId } from './user.utils.js'
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
-  const id = await generateUserId()
+  const id = await generateStudentId()
   user.id = id
 
   if (!user.password) {

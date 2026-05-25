@@ -1,4 +1,3 @@
-import { paginationFields } from '../../../constants/pagination.js'
 import catchAsync from '../../../shared/catchAsync.js'
 import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
