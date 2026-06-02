@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose'
 import type { IStudent, StudentModal } from './student.interface.js'
+import { bloodGroup, gender } from './student.constant.js'
 
 export const studentSchema = new Schema<IStudent, StudentModal>(
   {
@@ -29,11 +30,11 @@ export const studentSchema = new Schema<IStudent, StudentModal>(
     },
     gender: {
       type: String,
-      enum: ['male', 'female'],
+      enum: gender,
     },
     bloodGroup: {
       type: String,
-      enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+      enum: bloodGroup,
     },
     email: {
       type: String,
