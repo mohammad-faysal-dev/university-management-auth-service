@@ -1,4 +1,7 @@
 import { Model, Types } from 'mongoose'
+import type { IAcademicFaculty } from '../academicFaculty/academicFaculty.interface.js'
+import type { IAcademicDepartment } from '../academicDepartment/academicDepartment.interface.js'
+import type { IAcademicSemester } from '../academicSemester/academicSemester.interface.js'
 
 export interface UserName {
   firstName: string
@@ -36,10 +39,10 @@ export interface IStudent {
   permanentAddress: string
   guardian: Guardian
   localGuardian: LocalGuardian
-  profileImage: string
-  academicFaculty: Types.ObjectId
-  academicDepartment: Types.ObjectId
-  academicSemester: Types.ObjectId
+  profileImage?: string
+  academicFaculty: Types.ObjectId | IAcademicFaculty
+  academicDepartment: Types.ObjectId | IAcademicDepartment
+  academicSemester: Types.ObjectId | IAcademicSemester
 }
 
 export type StudentModal = Model<IStudent, Record<string, unknown>>
