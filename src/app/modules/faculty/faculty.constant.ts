@@ -1,0 +1,36 @@
+import type { TBloodGroup, TGender } from './faculty.interface.js'
+
+export const Gender: TGender[] = ['male', 'female', 'other']
+
+export const BloodGroup: TBloodGroup[] = [
+  'A+',
+  'A-',
+  'B+',
+  'B-',
+  'AB+',
+  'AB-',
+  'O+',
+  'O-',
+]
+
+export const FacultySearchableFields = [
+  'email',
+  'id',
+  'contactNo',
+  'emergencyContactNo',
+  'name.firstName',
+  'name.lastName',
+  'name.middleName',
+]
+
+export const FacultyFilterableFields = [
+  'searchTerm',
+  'id',
+  'gender',
+  'bloodGroup',
+  'email',
+  'contactNo',
+  'emergencyContactNo',
+  'academicDepartment',
+  'designation',
+]
