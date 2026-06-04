@@ -46,3 +46,12 @@ export interface IStudent {
 }
 
 export type StudentModal = Model<IStudent, Record<string, unknown>>
+
+export interface IStudentFilters {
+  searchTerm?: string
+  id?: string
+  email?: string
+  bloodGroup?: string
+  contactNo?: string
+  emergencyContactNo?: string
+}

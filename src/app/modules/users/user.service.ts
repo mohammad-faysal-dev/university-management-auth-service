@@ -11,7 +11,7 @@ import { Student } from '../student/student.modal.js'
 const createStudent = async (
   student: IStudent,
   user: IUser,
-): Promise<IUser | null | undefined> => {
+): Promise<IUser | null> => {
   if (!user.password) {
     user.password = config.default_student_password as string
   }
@@ -26,16 +26,17 @@ const createStudent = async (
     const id = await generateStudentId(academicSemester)
     user.id = id
     student.id = id
-    const newStudent = await Student.create([student], { session })
-    if (!newStudent.length) {
+    const [newStudent] = await Student.create([student], { session })
+    if (!newStudent) {
       throw new ApiError(400, 'Failed to create student')
     }
-    user.student = newStudent[0]?._id
-    const newUser = await User.create([user], { session })
-    if (!newUser.length) {
+    user.student = newStudent._id
+
+    const [newUser] = await User.create([user], { session })
+    if (!newUser) {
       throw new ApiError(400, 'Failed to create user')
     }
-    newUserAllData = newUser[0]
+    newUserAllData = newUser
 
     await session.commitTransaction()
     await session.endSession()

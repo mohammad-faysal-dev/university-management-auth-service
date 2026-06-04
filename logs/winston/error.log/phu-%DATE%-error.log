@@ -1,0 +1,2 @@
+Thu Jun 04 2026 10:29:0 [PH] error: Failed to connect database querySrv ENOTFOUND _mongodb._tcp.cluster0.erebr.mongodb.net
+Thu Jun 04 2026 10:29:45 [PH] error: Failed to connect database querySrv ENOTFOUND _mongodb._tcp.cluster0.erebr.mongodb.net
