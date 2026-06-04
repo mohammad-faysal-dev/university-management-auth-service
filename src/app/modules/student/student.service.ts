@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { SortOrder } from 'mongoose'
 import { paginationHelper } from '../../../helpers/paginationHelper.js'
 import type { IGenericResponse } from '../../../interfaces/common.js'
@@ -5,6 +6,7 @@ import type { IPaginationOptions } from '../../../interfaces/paginations.js'
 import { studentSearchableFields } from './student.constant.js'
 import type { IStudent, IStudentFilters } from './student.interface.js'
 import { Student } from './student.modal.js'
+import ApiError from '../../../errors/ApiError.js'
 
 const getAllStudents = async (
   filters: IStudentFilters,
@@ -72,6 +74,32 @@ const updateStudent = async (
   id: string,
   payload: Partial<IStudent>,
 ): Promise<IStudent | null> => {
+  const isExist = await Student.findOne({ id })
+  if (!isExist) {
+    throw new ApiError(404, 'Student not found')
+  }
+  const { name, guardian, localGuardian, ...studentData } = payload
+  const updatedStudentData: Partial<IStudent> = { ...studentData }
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}`
+      ;(updatedStudentData as any)[nameKey] = name[key as keyof typeof name]
+    })
+  }
+  if (guardian && Object.keys(guardian).length > 0) {
+    Object.keys(guardian).forEach(key => {
+      const guardianKey = `guardian.${key}`
+      ;(updatedStudentData as any)[guardianKey] =
+        guardian[key as keyof typeof guardian]
+    })
+  }
+  if (localGuardian && Object.keys(localGuardian).length > 0) {
+    Object.keys(localGuardian).forEach(key => {
+      const localGuardianKey = `localGuardian.${key}`
+      ;(updatedStudentData as any)[localGuardianKey] =
+        localGuardian[key as keyof typeof localGuardian]
+    })
+  }
   const result = await Student.findOneAndUpdate({ id }, payload, {
     new: true,
   })
