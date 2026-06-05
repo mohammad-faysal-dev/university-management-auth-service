@@ -6,6 +6,7 @@ export interface IUser {
   role: string
   password: string
   student?: Types.ObjectId | IStudent | undefined
+  faculty?: Types.ObjectId | IStudent | undefined
 }
 
 export type UserModel = Model<IUser, Record<string, unknown>>

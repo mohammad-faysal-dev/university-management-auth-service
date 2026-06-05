@@ -5,8 +5,10 @@ import { AcademicSemester } from '../academicSemester/academicSemesterModel.js'
 import type { IStudent } from '../student/student.interface.js'
 import type { IUser } from './user.interface.js'
 import { User } from './user.model.js'
-import { generateStudentId } from './user.utils.js'
+import { generateStudentId, generateFacultyId } from './user.utils.js'
 import { Student } from '../student/student.modal.js'
+import type { TFaculty } from '../faculty/faculty.interface.js'
+import { Faculty } from '../faculty/faculty.model.js'
 
 const createStudent = async (
   student: IStudent,
@@ -64,6 +66,57 @@ const createStudent = async (
   return newUserAllData
 }
 
+const createFaculty = async (
+  faculty: TFaculty,
+  user: IUser,
+): Promise<IUser | null> => {
+  if (!user.password) {
+    user.password = config.default_faculty_password as string
+  }
+  user.role = 'faculty'
+  let newUserAllData = null
+  const session = await mongoose.startSession()
+  try {
+    session.startTransaction()
+    const id = await generateFacultyId()
+    user.id = id
+    faculty.id = id
+
+    const [newFaculty] = await Faculty.create([faculty], { session })
+    if (!newFaculty) {
+      throw new ApiError(400, 'Failed to create faculty')
+    }
+    user.faculty = newFaculty._id
+
+    const [newUser] = await User.create([user], { session })
+    if (!newUser) {
+      throw new ApiError(400, 'Failed to create user')
+    }
+    newUserAllData = newUser
+
+    await session.commitTransaction()
+    await session.endSession()
+  } catch (error) {
+    await session.abortTransaction()
+    await session.endSession()
+    throw error
+  }
+  if (newUserAllData) {
+    newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
+      path: 'faculty',
+      populate: [
+        {
+          path: 'academicDepartment',
+        },
+        {
+          path: 'academicFaculty',
+        },
+      ],
+    })
+  }
+  return newUserAllData
+}
 export const UserService = {
   createStudent,
+  createFaculty,
 }
