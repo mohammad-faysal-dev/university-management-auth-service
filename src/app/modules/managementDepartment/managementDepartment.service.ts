@@ -67,9 +67,16 @@ const getSingleManagementDepartment = async (
   const result = await managementDepartment.findById(id)
   return result
 }
+const deleteManagementDepartment = async (
+  id: string | undefined,
+): Promise<IManagementDepartment | null> => {
+  const result = await managementDepartment.findByIdAndDelete(id)
+  return result
+}
 
 export const ManagementDepartmentService = {
   createManagementDepartment,
   getAllManagementDepartment,
   getSingleManagementDepartment,
+  deleteManagementDepartment,
 }

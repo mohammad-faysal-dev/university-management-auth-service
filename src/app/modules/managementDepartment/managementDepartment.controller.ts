@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { paginationFields } from '../../../constants/pagination.js'
 import catchAsync from '../../../shared/catchAsync.js'
 import pick from '../../../shared/pick.js'
@@ -45,9 +44,21 @@ const getSingleManagementDepartment = catchAsync(async (req, res) => {
     data: result,
   })
 })
+const deleteManagementDepartment = catchAsync(async (req, res) => {
+  const id = req.params.id
+  const result =
+    await ManagementDepartmentService.deleteManagementDepartment(id)
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Management Department delete Successfully',
+    data: result,
+  })
+})
 
 export const ManagementDepartmentController = {
   createManagementDepartment,
   getAllManagementDepartments,
   getSingleManagementDepartment,
+  deleteManagementDepartment,
 }
