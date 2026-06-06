@@ -2,8 +2,8 @@ import catchAsync from '../../../shared/catchAsync.js'
 import sendResponse from '../../../shared/sendResponse.js'
 import httpStatus from 'http-status'
 import { FacultyService } from './faculty.service.js'
-import pick from '../../../shared/pick.js'
 import { FacultyFilterableFields } from './faculty.constant.js'
+import pick from '../../../shared/pick.js'
 import { paginationFields } from '../../../constants/pagination.js'
 const getSingleFaculty = catchAsync(async (req, res) => {
   const { id } = req.params
@@ -21,7 +21,6 @@ const getSingleFaculty = catchAsync(async (req, res) => {
 const getAllFaculties = catchAsync(async (req, res) => {
   const filters = pick(req.query, FacultyFilterableFields)
   const paginationOptions = pick(req.query, paginationFields)
-
   const result = await FacultyService.getAllFaculties(
     filters,
     paginationOptions,
@@ -31,8 +30,7 @@ const getAllFaculties = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculties retrieved successfully',
-    meta: result.meta,
-    data: result.data,
+    data: result,
   })
 })
 
