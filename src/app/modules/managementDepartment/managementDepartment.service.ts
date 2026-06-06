@@ -7,12 +7,12 @@ import type {
   IManagementDepartment,
   IManagementFilters,
 } from './managementDepartment.interface.js'
-import { managementDepartment } from './managementDepartment.modal.js'
+import { ManagementDepartment } from './managementDepartment.modal.js'
 
 const createManagementDepartment = async (
   payload: IManagementDepartment,
 ): Promise<IManagementDepartment> => {
-  const result = await managementDepartment.create(payload)
+  const result = await ManagementDepartment.create(payload)
   return result
 }
 const getAllManagementDepartment = async (
@@ -46,9 +46,8 @@ const getAllManagementDepartment = async (
     sortConditions[sortBy] = sortOrder
   }
   const skip = (page - 1) * limit
-  const total = await managementDepartment.countDocuments(whereConditions)
-  const result = await managementDepartment
-    .find(whereConditions)
+  const total = await ManagementDepartment.countDocuments(whereConditions)
+  const result = await ManagementDepartment.find(whereConditions)
     .sort(sortConditions)
     .skip(skip)
     .limit(limit)
@@ -64,20 +63,20 @@ const getAllManagementDepartment = async (
 const getSingleManagementDepartment = async (
   id: string | undefined,
 ): Promise<IManagementDepartment | null> => {
-  const result = await managementDepartment.findById(id)
+  const result = await ManagementDepartment.findById(id)
   return result
 }
 const deleteManagementDepartment = async (
   id: string | undefined,
 ): Promise<IManagementDepartment | null> => {
-  const result = await managementDepartment.findByIdAndDelete(id)
+  const result = await ManagementDepartment.findByIdAndDelete(id)
   return result
 }
 const updateManagementDepartment = async (
   id: string | undefined,
   payload: Partial<IManagementDepartment>,
 ): Promise<IManagementDepartment | null> => {
-  const result = await managementDepartment.findOneAndUpdate(
+  const result = await ManagementDepartment.findOneAndUpdate(
     { _id: id },
     payload,
     {

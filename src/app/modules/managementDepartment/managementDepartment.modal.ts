@@ -10,7 +10,7 @@ const managementSchema = new Schema<IManagementDepartment>({
   },
 })
 
-export const managementDepartment = model<
+export const ManagementDepartment = model<
   IManagementDepartment,
   managementModel
->('management', managementSchema)
+>('ManagementDepartment', managementSchema)

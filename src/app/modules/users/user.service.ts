@@ -15,6 +15,7 @@ import type { TFaculty } from '../faculty/faculty.interface.js'
 import { Faculty } from '../faculty/faculty.model.js'
 import type { IAdmin } from '../admin/admin.interface.js'
 import { Admin } from '../admin/admin.model.js'
+import { ManagementDepartment } from '../managementDepartment/managementDepartment.modal.js'
 
 const createStudent = async (
   student: IStudent,
@@ -131,7 +132,7 @@ const createAdmin = async (
     user.password = config.default_admin_password as string
   }
   user.role = 'admin'
-  let newUserAllData: IUser | null = null
+  let newUserAllData = null
   const session = await mongoose.startSession()
   try {
     session.startTransaction()
