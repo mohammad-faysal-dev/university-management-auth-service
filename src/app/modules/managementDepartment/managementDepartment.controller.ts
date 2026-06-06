@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { paginationFields } from '../../../constants/pagination.js'
 import catchAsync from '../../../shared/catchAsync.js'
 import pick from '../../../shared/pick.js'
 import sendResponse from '../../../shared/sendResponse.js'
 import { managementDepartmentFilters } from './managementDepartment.constant.js'
+import type { IManagementDepartment } from './managementDepartment.interface.js'
 import { ManagementDepartmentService } from './managementDepartment.service.js'
 
 const createManagementDepartment = catchAsync(async (req, res) => {
@@ -32,7 +34,20 @@ const getAllManagementDepartments = catchAsync(async (req, res) => {
   })
 })
 
+const getSingleManagementDepartment = catchAsync(async (req, res) => {
+  const id = req.params.id
+  const result =
+    await ManagementDepartmentService.getSingleManagementDepartment(id)
+  sendResponse<IManagementDepartment>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Management Department retrieved Successfully',
+    data: result,
+  })
+})
+
 export const ManagementDepartmentController = {
   createManagementDepartment,
   getAllManagementDepartments,
+  getSingleManagementDepartment,
 }

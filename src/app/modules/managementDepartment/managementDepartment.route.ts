@@ -7,4 +7,5 @@ router.post(
   ManagementDepartmentController.createManagementDepartment,
 )
 router.get('/', ManagementDepartmentController.getAllManagementDepartments)
+router.get('/:id', ManagementDepartmentController.getSingleManagementDepartment)
 export const managementDepartmentRoutes = router
