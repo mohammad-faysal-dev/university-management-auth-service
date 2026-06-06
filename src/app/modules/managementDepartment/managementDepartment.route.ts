@@ -9,4 +9,5 @@ router.post(
 router.get('/', ManagementDepartmentController.getAllManagementDepartments)
 router.get('/:id', ManagementDepartmentController.getSingleManagementDepartment)
 router.delete('/:id', ManagementDepartmentController.deleteManagementDepartment)
+router.patch('/:id', ManagementDepartmentController.updateManagementDepartment)
 export const managementDepartmentRoutes = router

@@ -73,10 +73,24 @@ const deleteManagementDepartment = async (
   const result = await managementDepartment.findByIdAndDelete(id)
   return result
 }
+const updateManagementDepartment = async (
+  id: string | undefined,
+  payload: Partial<IManagementDepartment>,
+): Promise<IManagementDepartment | null> => {
+  const result = await managementDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
+      new: true,
+    },
+  )
+  return result
+}
 
 export const ManagementDepartmentService = {
   createManagementDepartment,
   getAllManagementDepartment,
   getSingleManagementDepartment,
   deleteManagementDepartment,
+  updateManagementDepartment,
 }

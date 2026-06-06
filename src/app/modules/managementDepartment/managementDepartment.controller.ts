@@ -55,10 +55,25 @@ const deleteManagementDepartment = catchAsync(async (req, res) => {
     data: result,
   })
 })
+const updateManagementDepartment = catchAsync(async (req, res) => {
+  const id = req.params.id
+  const updatedData = req.body
+  const result = ManagementDepartmentService.updateManagementDepartment(
+    id,
+    updatedData,
+  )
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Management Department updated Successfully',
+    data: result,
+  })
+})
 
 export const ManagementDepartmentController = {
   createManagementDepartment,
   getAllManagementDepartments,
   getSingleManagementDepartment,
   deleteManagementDepartment,
+  updateManagementDepartment,
 }
