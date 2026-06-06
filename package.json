@@ -1,9 +1,9 @@
 {
   "name": "university-management-auth-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "Authentication and user management service for University Management System",
   "license": "ISC",
-  "author": "",
+  "author": "mohammad-faysal-dev",
   "type": "module",
   "main": "src/server.ts",
   "scripts": {

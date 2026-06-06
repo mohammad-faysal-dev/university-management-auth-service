@@ -23,13 +23,19 @@ export default [
     },
 
     rules: {
+      // Prettier formatting
       'prettier/prettier': 'error',
+
+      // General JS rules
       'no-console': 'warn',
       'no-undef': 'error',
       'no-unused-expressions': 'error',
       'no-unreachable': 'error',
-      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+      'prefer-const': 'error',
 
+      // TypeScript-specific rules
+      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
@@ -37,8 +43,6 @@ export default [
           varsIgnorePattern: '^_',
         },
       ],
-
-      '@typescript-eslint/no-explicit-any': 'warn',
     },
 
     ignores: ['node_modules', 'dist'],
