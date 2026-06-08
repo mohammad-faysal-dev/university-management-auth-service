@@ -1,9 +1,4 @@
-import express, {
-  type Application,
-  type NextFunction,
-  type Request,
-  type Response,
-} from 'express'
+import express, { type Application, type NextFunction, type Request, type Response } from 'express'
 import cors from 'cors'
 import { UserRoutes } from './app/modules/users/user.route.js'
 import globalErrorHandler from './middlewares/globalErrorHandler.js'
@@ -12,6 +7,7 @@ import httpStatus from 'http-status'
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes.js'
 import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.routes.js'
 import { managementDepartmentRoutes } from './app/modules/managementDepartment/managementDepartment.route.js'
+import { AuthRoute } from './app/modules/auth/auth.route.js'
 const app: Application = express()
 
 app.use(cors())
@@ -22,6 +18,7 @@ app.use('/api/v1/academic-semesters', AcademicSemesterRoutes)
 app.use('/api/v1/academic-faculties', AcademicFacultyRoutes)
 app.use('/api/v1/academic-departments', AcademicDepartmentRoutes)
 app.use('/api/v1/management-departments', managementDepartmentRoutes)
+app.use('/api/v1/auth', AuthRoute)
 
 app.get('/', (req: Request, res: Response, _next: NextFunction) => {
   res.status(200).json({ message: 'Server is running successfully' })
