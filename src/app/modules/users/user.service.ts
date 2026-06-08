@@ -5,29 +5,20 @@ import { AcademicSemester } from '../academicSemester/academicSemesterModel.js'
 import type { IStudent } from '../student/student.interface.js'
 import type { IUser } from './user.interface.js'
 import { User } from './user.model.js'
-import {
-  generateStudentId,
-  generateFacultyId,
-  generateAdminId,
-} from './user.utils.js'
+import { generateStudentId, generateFacultyId, generateAdminId } from './user.utils.js'
 import { Student } from '../student/student.modal.js'
 import type { TFaculty } from '../faculty/faculty.interface.js'
 import { Faculty } from '../faculty/faculty.model.js'
 import type { IAdmin } from '../admin/admin.interface.js'
 import { Admin } from '../admin/admin.model.js'
-import { ManagementDepartment } from '../managementDepartment/managementDepartment.modal.js'
 
-const createStudent = async (
-  student: IStudent,
-  user: IUser,
-): Promise<IUser | null> => {
+const createStudent = async (student: IStudent, user: IUser): Promise<IUser | null> => {
   if (!user.password) {
     user.password = config.default_student_password as string
   }
+
   user.role = 'student'
-  const academicSemester = await AcademicSemester.findById(
-    student.academicSemester,
-  )
+  const academicSemester = await AcademicSemester.findById(student.academicSemester)
   let newUserAllData = null
   const session = await mongoose.startSession()
   try {
@@ -73,10 +64,7 @@ const createStudent = async (
   return newUserAllData
 }
 
-const createFaculty = async (
-  faculty: TFaculty,
-  user: IUser,
-): Promise<IUser | null> => {
+const createFaculty = async (faculty: TFaculty, user: IUser): Promise<IUser | null> => {
   if (!user.password) {
     user.password = config.default_faculty_password as string
   }
@@ -115,19 +103,13 @@ const createFaculty = async (
         {
           path: 'academicDepartment',
         },
-        {
-          path: 'academicFaculty',
-        },
       ],
     })
   }
   return newUserAllData
 }
 
-const createAdmin = async (
-  admin: IAdmin,
-  user: IUser,
-): Promise<IUser | null> => {
+const createAdmin = async (admin: IAdmin, user: IUser): Promise<IUser | null> => {
   if (!user.password) {
     user.password = config.default_admin_password as string
   }

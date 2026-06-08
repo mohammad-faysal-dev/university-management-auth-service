@@ -11,16 +11,12 @@ const createUserZodSchema = z.object({
       }),
       dateOfBirth: z.string().min(1, 'Date of birth is required'),
       gender: z.enum(['male', 'female']),
-      bloodGroup: z
-        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-        .optional(),
+      bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
       email: z.email({ error: 'Invalid email address' }).min(1, {
         error: 'Email is required',
       }),
       contactNo: z.string().min(1, 'Contact number is required'),
-      emergencyContactNo: z
-        .string()
-        .min(1, 'Emergency contact number is required'),
+      emergencyContactNo: z.string().min(1, 'Emergency contact number is required'),
       presentAddress: z.string().min(1, 'Present address is required'),
       permanentAddress: z.string().min(1, 'Permanent address is required'),
       academicSemester: z.string().min(1, 'Academic semester is required'),
@@ -38,9 +34,7 @@ const createUserZodSchema = z.object({
       localGuardian: z.object({
         name: z.string().min(1, 'Local guardian is required'),
         occupation: z.string().min(1, 'Local guardian occupation is required'),
-        contactNo: z
-          .string()
-          .min(1, 'Local guardian contact number is required'),
+        contactNo: z.string().min(1, 'Local guardian contact number is required'),
         address: z.string().min(1, 'Local guardian address is required'),
       }),
       profileImage: z.string().optional(),

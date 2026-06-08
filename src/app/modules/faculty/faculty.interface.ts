@@ -1,15 +1,7 @@
 import { Model, Types } from 'mongoose'
 
 export type TGender = 'male' | 'female' | 'other'
-export type TBloodGroup =
-  | 'A+'
-  | 'A-'
-  | 'B+'
-  | 'B-'
-  | 'AB+'
-  | 'AB-'
-  | 'O+'
-  | 'O-'
+export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
 
 export interface TUserName {
   firstName: string
@@ -19,7 +11,6 @@ export interface TUserName {
 
 export interface TFaculty {
   id: string
-  user: Types.ObjectId
   designation: string
   name: TUserName
   gender: TGender

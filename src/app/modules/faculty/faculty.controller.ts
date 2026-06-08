@@ -21,10 +21,7 @@ const getSingleFaculty = catchAsync(async (req, res) => {
 const getAllFaculties = catchAsync(async (req, res) => {
   const filters = pick(req.query, FacultyFilterableFields)
   const paginationOptions = pick(req.query, paginationFields)
-  const result = await FacultyService.getAllFaculties(
-    filters,
-    paginationOptions,
-  )
+  const result = await FacultyService.getAllFaculties(filters, paginationOptions)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

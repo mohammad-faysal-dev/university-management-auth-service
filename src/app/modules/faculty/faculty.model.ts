@@ -28,12 +28,6 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       required: [true, 'ID is required'],
       unique: true,
     },
-    user: {
-      type: Schema.Types.ObjectId,
-      required: [true, 'User id is required'],
-      unique: true,
-      ref: 'User',
-    },
     designation: {
       type: String,
       required: [true, 'Designation is required'],
@@ -88,10 +82,11 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     },
   },
   {
+    timestamps: true,
     toJSON: {
       virtuals: true,
     },
-  },
+  }
 )
 
 export const Faculty = model<TFaculty, FacultyModel>('Faculty', facultySchema)
