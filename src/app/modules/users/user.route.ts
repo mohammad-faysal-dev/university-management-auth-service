@@ -8,7 +8,7 @@ const router = express.Router()
 router.post(
   '/create-student',
   validateRequest(UserValidation.createUserZodSchema),
-  UserController.createStudent,
+  UserController.createStudent
 )
 router.post('/create-faculty', UserController.createFaculty)
 router.post('/create-admin', UserController.createAdmin)

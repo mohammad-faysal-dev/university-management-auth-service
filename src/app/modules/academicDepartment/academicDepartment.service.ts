@@ -9,20 +9,15 @@ import type {
 import { AcademicDepartment } from './academicDepartment.model.js'
 import type { IGenericResponse } from '../../../interfaces/common.js'
 
-const createDepartment = async (
-  payload: IAcademicDepartment,
-): Promise<IAcademicDepartment> => {
-  const result = (await AcademicDepartment.create(payload)).populate(
-    'academicFaculty',
-  )
+const createDepartment = async (payload: IAcademicDepartment): Promise<IAcademicDepartment> => {
+  const result = (await AcademicDepartment.create(payload)).populate('academicFaculty')
   return result
 }
 const getAllDepartments = async (
   filters: IAcademicDepartmentFilters,
-  paginationOptions: IPaginationOptions,
+  paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IAcademicDepartment[]>> => {
-  const { page, limit, sortBy, sortOrder } =
-    paginationHelper.calculatePagination(paginationOptions)
+  const { page, limit, sortBy, sortOrder } = paginationHelper.calculatePagination(paginationOptions)
   const { searchTerm, ...filtersData } = filters
   const andConditions: Record<string, unknown>[] = []
   if (searchTerm) {
@@ -67,19 +62,13 @@ const getAllDepartments = async (
 
 const updateDepartment = async (
   id: string | undefined,
-  payload: Partial<IAcademicDepartment>,
+  payload: Partial<IAcademicDepartment>
 ): Promise<IAcademicDepartment | null> => {
-  const result = await AcademicDepartment.findOneAndUpdate(
-    { _id: id },
-    payload,
-    { new: true },
-  )
+  const result = await AcademicDepartment.findOneAndUpdate({ _id: id }, payload, { new: true })
   return result
 }
 
-const deleteDepartment = async (
-  id: string | undefined,
-): Promise<IAcademicDepartment | null> => {
+const deleteDepartment = async (id: string | undefined): Promise<IAcademicDepartment | null> => {
   const result = await AcademicDepartment.findByIdAndDelete(id)
   return result
 }

@@ -4,11 +4,7 @@ import type {
   IAcademicSemesterMonths,
 } from './academicSemester.interface.js'
 
-export const academicSemesterTitles: AcademicSemesterTitles[] = [
-  'Autumn',
-  'Summer',
-  'Fall',
-]
+export const academicSemesterTitles: AcademicSemesterTitles[] = ['Autumn', 'Summer', 'Fall']
 
 export const academicSemesterCodes: AcademicSemesterCode[] = ['01', '02', '03']
 

@@ -22,9 +22,9 @@ const AcademicDepartmentSchema = new Schema(
     toJSON: {
       virtuals: true,
     },
-  },
+  }
 )
-export const AcademicDepartment = model<
-  IAcademicDepartment,
-  AcademicDepartmentModel
->('AcademicDepartment', AcademicDepartmentSchema)
+export const AcademicDepartment = model<IAcademicDepartment, AcademicDepartmentModel>(
+  'AcademicDepartment',
+  AcademicDepartmentSchema
+)

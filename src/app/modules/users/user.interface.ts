@@ -7,9 +7,14 @@ export interface IUser {
   id: string
   role: string
   password: string
+  needsPasswordChange: boolean
   student?: Types.ObjectId | IStudent | undefined
   faculty?: Types.ObjectId | TFaculty | undefined
   admin?: Types.ObjectId | IAdmin | undefined
 }
+export interface IUserMethods {
+  isUserExist(id: string): Promise<Partial<IUser> | null>
+  isPasswordMatched(givenPassword: string, savedPassword: string): Promise<boolean>
+}
 
-export type UserModel = Model<IUser, Record<string, unknown>>
+export type UserModel = Model<IUser, Record<string, unknown>, IUserMethods>

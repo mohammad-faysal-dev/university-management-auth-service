@@ -8,9 +8,8 @@ import { ManagementDepartmentService } from './managementDepartment.service.js'
 
 const createManagementDepartment = catchAsync(async (req, res) => {
   const { ...managementDepartmentData } = req.body
-  const result = await ManagementDepartmentService.createManagementDepartment(
-    managementDepartmentData,
-  )
+  const result =
+    await ManagementDepartmentService.createManagementDepartment(managementDepartmentData)
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -23,7 +22,7 @@ const getAllManagementDepartments = catchAsync(async (req, res) => {
   const paginationOptions = pick(req.query, paginationFields)
   const result = await ManagementDepartmentService.getAllManagementDepartment(
     filters,
-    paginationOptions,
+    paginationOptions
   )
   sendResponse(res, {
     statusCode: 200,
@@ -35,8 +34,7 @@ const getAllManagementDepartments = catchAsync(async (req, res) => {
 
 const getSingleManagementDepartment = catchAsync(async (req, res) => {
   const id = req.params.id
-  const result =
-    await ManagementDepartmentService.getSingleManagementDepartment(id)
+  const result = await ManagementDepartmentService.getSingleManagementDepartment(id)
   sendResponse<IManagementDepartment>(res, {
     statusCode: 200,
     success: true,
@@ -46,8 +44,7 @@ const getSingleManagementDepartment = catchAsync(async (req, res) => {
 })
 const deleteManagementDepartment = catchAsync(async (req, res) => {
   const id = req.params.id
-  const result =
-    await ManagementDepartmentService.deleteManagementDepartment(id)
+  const result = await ManagementDepartmentService.deleteManagementDepartment(id)
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -58,10 +55,7 @@ const deleteManagementDepartment = catchAsync(async (req, res) => {
 const updateManagementDepartment = catchAsync(async (req, res) => {
   const id = req.params.id
   const updatedData = req.body
-  const result = ManagementDepartmentService.updateManagementDepartment(
-    id,
-    updatedData,
-  )
+  const result = ManagementDepartmentService.updateManagementDepartment(id, updatedData)
   sendResponse(res, {
     statusCode: 200,
     success: true,

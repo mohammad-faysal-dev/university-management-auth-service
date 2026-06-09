@@ -61,10 +61,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, _next) => {
     success: false,
     message,
     errorMessages,
-    stack:
-      config.env !== 'production' && err instanceof Error
-        ? err?.stack
-        : undefined,
+    stack: config.env !== 'production' && err instanceof Error ? err?.stack : undefined,
   })
 }
 

@@ -4,15 +4,10 @@ import { paginationHelper } from '../../../helpers/paginationHelper.js'
 import type { IGenericResponse } from '../../../interfaces/common.js'
 import type { IPaginationOptions } from '../../../interfaces/paginations.js'
 import { academicSemesterTitleCodeMapper } from './academicSemester.constant.js'
-import type {
-  IAcademicSemester,
-  IAcademicSemesterFilters,
-} from './academicSemester.interface.js'
+import type { IAcademicSemester, IAcademicSemesterFilters } from './academicSemester.interface.js'
 import { AcademicSemester } from './academicSemesterModel.js'
 import httpStatus from 'http-status'
-const createSemester = async (
-  payload: IAcademicSemester,
-): Promise<IAcademicSemester> => {
+const createSemester = async (payload: IAcademicSemester): Promise<IAcademicSemester> => {
   if (academicSemesterTitleCodeMapper[payload.title] !== payload.code) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Semester code')
   }
@@ -22,7 +17,7 @@ const createSemester = async (
 
 const getAllSemesters = async (
   filters: IAcademicSemesterFilters,
-  paginationOptions: IPaginationOptions,
+  paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IAcademicSemester[]>> => {
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(paginationOptions)
@@ -50,8 +45,7 @@ const getAllSemesters = async (
       })),
     })
   }
-  const whereConditions =
-    andConditions.length > 0 ? { $and: andConditions } : {}
+  const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {}
   const result = await AcademicSemester.find(whereConditions)
     .sort(sortConditions)
     .skip(skip)
@@ -66,15 +60,13 @@ const getAllSemesters = async (
     data: result,
   }
 }
-const getSingleSemester = async (
-  id: string | undefined,
-): Promise<IAcademicSemester | null> => {
+const getSingleSemester = async (id: string | undefined): Promise<IAcademicSemester | null> => {
   const result = await AcademicSemester.findById(id)
   return result
 }
 const updateSemester = async (
   id: string | undefined,
-  payload: Partial<IAcademicSemester>,
+  payload: Partial<IAcademicSemester>
 ): Promise<IAcademicSemester | null> => {
   if (
     payload.title &&
@@ -89,9 +81,7 @@ const updateSemester = async (
   return result
 }
 
-const deleteSemester = async (
-  id: string | undefined,
-): Promise<IAcademicSemester | null> => {
+const deleteSemester = async (id: string | undefined): Promise<IAcademicSemester | null> => {
   const result = await AcademicSemester.findByIdAndDelete(id)
   return result
 }

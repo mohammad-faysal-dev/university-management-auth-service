@@ -23,17 +23,11 @@ const updateAcademicSemesterZodSchema = z
         })
         .optional(),
       code: z.enum(['01', '02', '03']).optional(),
-      startMonth: z
-        .enum([...academicSemesterMonths] as [string, ...string[]])
-        .optional(),
-      endMonth: z
-        .enum([...academicSemesterMonths] as [string, ...string[]])
-        .optional(),
+      startMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]).optional(),
+      endMonth: z.enum([...academicSemesterMonths] as [string, ...string[]]).optional(),
     }),
   })
-  .refine(
-    data => (data.body.title && data.body.code) || (!data.body.title && !data),
-  )
+  .refine(data => (data.body.title && data.body.code) || (!data.body.title && !data))
 
 export const AcademicSemesterValidation = {
   createAcademicSemesterZodSchema,

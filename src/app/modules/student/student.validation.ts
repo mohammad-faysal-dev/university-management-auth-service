@@ -14,9 +14,7 @@ const updateStudentZodSchema = z.object({
 
     gender: z.enum(['male', 'female']).optional(),
 
-    bloodGroup: z
-      .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-      .optional(),
+    bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
 
     email: z.email({ error: 'Invalid email address' }).optional(),
 

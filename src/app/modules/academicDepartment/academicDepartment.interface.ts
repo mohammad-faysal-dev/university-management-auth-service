@@ -6,10 +6,7 @@ export interface IAcademicDepartment {
   academicFaculty: Types.ObjectId | IAcademicFaculty
 }
 
-export type AcademicDepartmentModel = Model<
-  IAcademicDepartment,
-  Record<string, unknown>
->
+export type AcademicDepartmentModel = Model<IAcademicDepartment, Record<string, unknown>>
 
 export interface IAcademicDepartmentFilterRequest {
   searchTerm?: string

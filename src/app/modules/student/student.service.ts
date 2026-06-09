@@ -10,11 +10,10 @@ import ApiError from '../../../errors/ApiError.js'
 
 const getAllStudents = async (
   filters: IStudentFilters,
-  paginationOptions: IPaginationOptions,
+  paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IStudent[]>> => {
   const { searchTerm, ...filtersData } = filters
-  const { page, limit, sortBy, sortOrder } =
-    paginationHelper.calculatePagination(paginationOptions)
+  const { page, limit, sortBy, sortOrder } = paginationHelper.calculatePagination(paginationOptions)
 
   const andConditions: Record<string, unknown>[] = []
 
@@ -53,10 +52,7 @@ const getAllStudents = async (
 
   const skip = (page - 1) * limit
   const total = await Student.countDocuments(whereConditions)
-  const result = await Student.find(whereConditions)
-    .sort(sortConditions)
-    .skip(skip)
-    .limit(limit)
+  const result = await Student.find(whereConditions).sort(sortConditions).skip(skip).limit(limit)
   return {
     meta: {
       page,
@@ -70,10 +66,7 @@ const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findById(id)
   return result
 }
-const updateStudent = async (
-  id: string,
-  payload: Partial<IStudent>,
-): Promise<IStudent | null> => {
+const updateStudent = async (id: string, payload: Partial<IStudent>): Promise<IStudent | null> => {
   const isExist = await Student.findOne({ id })
   if (!isExist) {
     throw new ApiError(404, 'Student not found')
@@ -89,8 +82,7 @@ const updateStudent = async (
   if (guardian && Object.keys(guardian).length > 0) {
     Object.keys(guardian).forEach(key => {
       const guardianKey = `guardian.${key}`
-      ;(updatedStudentData as any)[guardianKey] =
-        guardian[key as keyof typeof guardian]
+      ;(updatedStudentData as any)[guardianKey] = guardian[key as keyof typeof guardian]
     })
   }
   if (localGuardian && Object.keys(localGuardian).length > 0) {

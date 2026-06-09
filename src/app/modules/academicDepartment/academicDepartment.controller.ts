@@ -10,8 +10,7 @@ import { AcademicDepartmentService } from './academicDepartment.service.js'
 
 const createDepartment = catchAsync(async (req, res) => {
   const { ...academicDepartments } = req.body
-  const result =
-    await AcademicDepartmentService.createDepartment(academicDepartments)
+  const result = await AcademicDepartmentService.createDepartment(academicDepartments)
   sendResponse<IAcademicDepartment>(res, {
     statusCode: 200,
     success: true,
@@ -21,15 +20,10 @@ const createDepartment = catchAsync(async (req, res) => {
 })
 const getAllDepartments = catchAsync(async (req, res) => {
   const filters = pick(req.query, academicDepartmentFilterableFields)
-  const paginationOptions = pick(req.query, [
-    'page',
-    'limit',
-    'sortBy',
-    'sortOrder',
-  ])
+  const paginationOptions = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder'])
   const result = await AcademicDepartmentService.getAllDepartments(
     filters as IAcademicDepartmentFilters,
-    paginationOptions,
+    paginationOptions
   )
   sendResponse<IAcademicDepartment[]>(res, {
     statusCode: 200,

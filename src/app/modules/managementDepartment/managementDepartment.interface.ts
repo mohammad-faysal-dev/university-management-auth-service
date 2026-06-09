@@ -8,7 +8,4 @@ export interface IManagementFilters {
   title?: string
 }
 
-export type managementModel = Model<
-  IManagementDepartment,
-  Record<string, unknown>
->
+export type managementModel = Model<IManagementDepartment, Record<string, unknown>>

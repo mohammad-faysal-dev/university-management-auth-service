@@ -10,7 +10,7 @@ router.delete('/:id', studentController.deleteStudent)
 router.patch(
   '/:id',
   validateRequest(StudentValidation.updateStudentZodSchema),
-  studentController.updateStudent,
+  studentController.updateStudent
 )
 
 export const StudentRoutes = router

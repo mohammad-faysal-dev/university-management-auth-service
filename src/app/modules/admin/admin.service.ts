@@ -8,7 +8,7 @@ const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
 
 const updateAdmin = async (
   id: string | undefined,
-  payload: Partial<IAdmin>,
+  payload: Partial<IAdmin>
 ): Promise<IAdmin | null> => {
   const result = await Admin.findOneAndUpdate({ _id: id }, payload, {
     new: true,

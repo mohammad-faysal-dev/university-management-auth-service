@@ -3,25 +3,21 @@ import { paginationHelper } from '../../../helpers/paginationHelper.js'
 import type { IGenericResponse } from '../../../interfaces/common.js'
 import type { IPaginationOptions } from '../../../interfaces/paginations.js'
 import { managementDepartmentSearchableFields } from './managementDepartment.constant.js'
-import type {
-  IManagementDepartment,
-  IManagementFilters,
-} from './managementDepartment.interface.js'
+import type { IManagementDepartment, IManagementFilters } from './managementDepartment.interface.js'
 import { ManagementDepartment } from './managementDepartment.modal.js'
 
 const createManagementDepartment = async (
-  payload: IManagementDepartment,
+  payload: IManagementDepartment
 ): Promise<IManagementDepartment> => {
   const result = await ManagementDepartment.create(payload)
   return result
 }
 const getAllManagementDepartment = async (
   filters: IManagementFilters,
-  paginationOptions: IPaginationOptions,
+  paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IManagementDepartment[]>> => {
   const { searchTerm, ...filtersData } = filters
-  const { page, limit, sortBy, sortOrder } =
-    paginationHelper.calculatePagination(paginationOptions)
+  const { page, limit, sortBy, sortOrder } = paginationHelper.calculatePagination(paginationOptions)
   const andConditions = []
   if (searchTerm) {
     andConditions.push({
@@ -61,28 +57,24 @@ const getAllManagementDepartment = async (
   }
 }
 const getSingleManagementDepartment = async (
-  id: string | undefined,
+  id: string | undefined
 ): Promise<IManagementDepartment | null> => {
   const result = await ManagementDepartment.findById(id)
   return result
 }
 const deleteManagementDepartment = async (
-  id: string | undefined,
+  id: string | undefined
 ): Promise<IManagementDepartment | null> => {
   const result = await ManagementDepartment.findByIdAndDelete(id)
   return result
 }
 const updateManagementDepartment = async (
   id: string | undefined,
-  payload: Partial<IManagementDepartment>,
+  payload: Partial<IManagementDepartment>
 ): Promise<IManagementDepartment | null> => {
-  const result = await ManagementDepartment.findOneAndUpdate(
-    { _id: id },
-    payload,
-    {
-      new: true,
-    },
-  )
+  const result = await ManagementDepartment.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  })
   return result
 }
 

@@ -8,11 +8,13 @@ import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFac
 import { AcademicDepartmentRoutes } from './app/modules/academicDepartment/academicDepartment.routes.js'
 import { managementDepartmentRoutes } from './app/modules/managementDepartment/managementDepartment.route.js'
 import { AuthRoute } from './app/modules/auth/auth.route.js'
+import cookieParser from 'cookie-parser'
 const app: Application = express()
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 app.use('/api/v1/users', UserRoutes)
 app.use('/api/v1/academic-semesters', AcademicSemesterRoutes)
 app.use('/api/v1/academic-faculties', AcademicFacultyRoutes)

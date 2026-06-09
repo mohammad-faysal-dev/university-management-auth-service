@@ -21,7 +21,7 @@ const logger = createLogger({
         'logs',
         'winston',
         'success.log',
-        'phu-%DATE%-success.log',
+        'phu-%DATE%-success.log'
       ),
       level: 'info',
     }),
@@ -33,13 +33,7 @@ const errorLogger = createLogger({
   transports: [
     new transports.Console(),
     new transports.File({
-      filename: path.join(
-        process.cwd(),
-        'logs',
-        'winston',
-        'error.log',
-        'phu-%DATE%-error.log',
-      ),
+      filename: path.join(process.cwd(), 'logs', 'winston', 'error.log', 'phu-%DATE%-error.log'),
       level: 'error',
     }),
   ],

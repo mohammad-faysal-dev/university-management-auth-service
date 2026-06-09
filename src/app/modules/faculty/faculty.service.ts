@@ -10,11 +10,10 @@ import { FacultySearchableFields } from './faculty.constant.js'
 
 const getAllFaculties = async (
   filters: TFacultyFilters,
-  paginationOptions: IPaginationOptions,
+  paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<TFaculty[]>> => {
   const { searchTerm, ...filtersData } = filters
-  const { page, limit, sortBy, sortOrder } =
-    paginationHelper.calculatePagination(paginationOptions)
+  const { page, limit, sortBy, sortOrder } = paginationHelper.calculatePagination(paginationOptions)
 
   const andConditions = []
 
@@ -66,10 +65,7 @@ const getSingleFaculty = async (id: string) => {
   const result = await Faculty.findById(id).populate('academicDepartment')
   return result
 }
-const updateFaculty = async (
-  id: string,
-  payload: Partial<TFaculty>,
-): Promise<TFaculty | null> => {
+const updateFaculty = async (id: string, payload: Partial<TFaculty>): Promise<TFaculty | null> => {
   const isExist = await Faculty.findOne({ id })
   if (!isExist) {
     throw new ApiError(400, 'Faculty not found')
@@ -94,7 +90,7 @@ const deleteFaculty = async (id: string) => {
     const deleteFaculty = await Faculty.findByIdAndUpdate(
       id,
       { isDeleted: true },
-      { new: true, session },
+      { new: true, session }
     )
     if (!deleteFaculty) {
       throw new ApiError(400, 'Failed to delete faculty')
@@ -103,7 +99,7 @@ const deleteFaculty = async (id: string) => {
     const deleteUser = await User.findByIdAndUpdate(
       userId,
       { isDeleted: true },
-      { new: true, session },
+      { new: true, session }
     )
     if (!deleteUser) {
       throw new ApiError(400, 'Failed to delete user')

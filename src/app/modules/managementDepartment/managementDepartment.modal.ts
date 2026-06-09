@@ -1,8 +1,5 @@
 import { model, Schema } from 'mongoose'
-import type {
-  IManagementDepartment,
-  managementModel,
-} from './managementDepartment.interface.js'
+import type { IManagementDepartment, managementModel } from './managementDepartment.interface.js'
 
 const managementSchema = new Schema<IManagementDepartment>({
   title: {
@@ -10,7 +7,7 @@ const managementSchema = new Schema<IManagementDepartment>({
   },
 })
 
-export const ManagementDepartment = model<
-  IManagementDepartment,
-  managementModel
->('ManagementDepartment', managementSchema)
+export const ManagementDepartment = model<IManagementDepartment, managementModel>(
+  'ManagementDepartment',
+  managementSchema
+)

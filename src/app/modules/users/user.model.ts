@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from 'mongoose'
-import type { IUser, UserModel } from './user.interface.js'
+import type { IUser, IUserMethods, UserModel } from './user.interface.js'
 import config from '../../../config/index.js'
 import bcrypt from 'bcrypt'
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser, Record<string, unknown>, IUserMethods>(
   {
     id: {
       type: String,
@@ -18,6 +18,10 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
       select: 0,
+    },
+    needsPasswordChange: {
+      type: Boolean,
+      default: true,
     },
     student: {
       type: Schema.Types.ObjectId,
@@ -36,6 +40,18 @@ const userSchema = new Schema<IUser>(
     timestamps: true,
   }
 )
+
+userSchema.methods.isUserExist = async function (id: string): Promise<Partial<IUser> | null> {
+  const user = await User.findOne({ id }, { id: 1, password: 1, role: 1, needsPasswordChange: 1 })
+  return user
+}
+userSchema.methods.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string
+): Promise<boolean> {
+  const isMatched = await bcrypt.compare(givenPassword, savedPassword)
+  return isMatched
+}
 userSchema.pre('save', async function () {
   const user = this
   user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds))
