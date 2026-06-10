@@ -4,6 +4,10 @@ export interface ILoginUser {
 }
 export interface ILoginUserResponse {
   accessToken: string
-  refreshToken: string
+  refreshToken?: string
   needsPasswordChange: boolean | undefined
+}
+
+export interface IRefreshTokenResponse {
+  accessToken: string
 }
